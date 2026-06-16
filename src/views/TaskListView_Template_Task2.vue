@@ -84,6 +84,11 @@ function handlePriorityUpdate(id, newPriority) {
   if (task) task.priority = newPriority
 }
 
+function clearAllDone() {
+  // Remove all tasks that are marked as done
+  tasks.value = tasks.value.filter(task => !task.done)
+}
+
 </script>
 
 <template>
@@ -111,8 +116,8 @@ function handlePriorityUpdate(id, newPriority) {
 
     <div class="filter-buttons">
       <button :class="{ active: filter === 'All' }" @click="filter = 'All'">All ({{ doneCount + pendingCount }})</button>
-      <button :class="{ active: filter === 'Pending' }" @click="filter = 'Pending'">Pending ({{ pendingCount }})</button>
       <button :class="{ active: filter === 'Done' }" @click="filter = 'Done'">Done ({{ doneCount }})</button>
+      <button :class="{ active: filter === 'Pending' }" @click="filter = 'Pending'">Pending ({{ pendingCount }})</button>
       
       <button class="clear-done" @click="clearAllDone" :disabled="doneCount === 0">
         <font-awesome-icon icon="fa-trash" />
