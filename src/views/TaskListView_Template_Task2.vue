@@ -7,7 +7,6 @@
 <script setup>
 import { ref } from 'vue'
 import TaskCard from './TaskCard_Template_Task2.vue'
-import './TaskCounter.css'
 
 // TODO 1: Create a ref() tasks array with at least 3 sample tasks
 // Each task: { id, name, done, dueDate }
@@ -47,17 +46,21 @@ function handleDelete(id) {
          - Listen @delete="handleDelete"
          - Fill the "meta" named slot with the due date
     -->
-    <TaskCard
-      v-for="task in tasks"
-      :key="task.id"
-      :task="task"
-      @complete="handleComplete"
-      @delete="handleDelete"
-    >
-      <template #meta>
-        Due: {{ task.dueDate }}
-      </template>
-    </TaskCard>
+    <div v-if="tasks.length === 0" class="empty">No tasks</div>
+    <div v-else>
+      <TaskCard
+        v-for="task in tasks"
+        :key="task.id"
+        :task="task"
+        @complete="handleComplete"
+        @delete="handleDelete"
+      >
+        <template #meta>
+          Due: {{ task.dueDate }}
+        </template>
+      </TaskCard>
+    </div>
+    
   </div>
 </template>
 

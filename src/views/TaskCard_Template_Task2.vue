@@ -132,11 +132,9 @@ const emit = defineEmits(['complete', 'delete'])
 }
 .task-header span.name {
   font-weight: 600;
-  font-size: 15px;
   color: #1B2A4A;
 }
 .task-header .meta {
-  font-size: 12px;
   color: #9ca3af;
 }
 .task-actions {
@@ -150,7 +148,6 @@ const emit = defineEmits(['complete', 'delete'])
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 13px;
 }
 .btn-delete {
   padding: 5px 14px;
@@ -159,6 +156,5 @@ const emit = defineEmits(['complete', 'delete'])
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 13px;
 }
 </style>
