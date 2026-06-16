@@ -16,7 +16,7 @@ function returnHome(){
     <div class="website-title" @click="returnHome" style="cursor: pointer;">
       <img class="logo" :src="VueLogo" alt="Vue logo" />
       <span class="title-text">BUILD WITH MIRACLE</span>
-      <span class="green-text">/ VUE.JS</span>
+      <span class="text-green">/ VUE.JS</span>
     </div>
 
     <div class="social-buttons">
@@ -58,17 +58,10 @@ function returnHome(){
   height: 48px;
 }
 
-.title-text {
-  color: var(--color-text);
+.title-text, .text-green {
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-}
-
-.green-text {
-  color: var(--color-green);
-  font-size: 1.5rem;
-  font-weight: 700;
 }
 
 .social-buttons {

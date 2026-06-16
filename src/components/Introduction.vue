@@ -7,6 +7,10 @@ const router = useRouter()
 function viewProjects(){
   router.push({ name: 'task-counter' })
 }
+
+function viewTaskList(){
+  router.push({ name: 'task-list' })
+}
 </script>
 
 <template>
@@ -14,7 +18,7 @@ function viewProjects(){
     <div class="intro-text">
       <h1 class="intro-title">
         Build with Miracle:
-        <span class="green-text">
+        <span class="text-green">
           Web Projects in Vue.js
         </span>
       </h1>
@@ -27,7 +31,12 @@ function viewProjects(){
 
       <!--temporary button-->
       <button class="view-button" @click="viewProjects">
-        View Projects
+        View Task 1: Task Counter
+      </button>
+
+      <!--temporary button-->
+      <button class="view-button" @click="viewTaskList">
+        View Task 2: Task List
       </button>
     </div>
 
@@ -62,10 +71,6 @@ function viewProjects(){
   color: var(--color-text);
   margin-bottom: 1.5rem;
   text-align: left;
-}
-
-.green-text {
-  color: var(--color-green);
 }
 
 .intro-description {

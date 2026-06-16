@@ -126,7 +126,7 @@ h1 {
 
 .priority.low {
   background: rgba(65, 184, 131, 0.15);
-  color: #41B883;
+  color: var(--color-green);
 }
 
 .priority.medium {
@@ -136,7 +136,7 @@ h1 {
 
 .priority.high {
   background: rgba(206, 36, 36, 0.15);
-  color: #CE2424;
+  color: var(--color-red);
 }
 
 .priority-select {
@@ -243,7 +243,7 @@ h1 {
   white-space: normal;
   overflow-wrap: break-word;
   word-break: break-word;
-  line-height: 1;
+  line-height: 1.5;
 }
 
 .done {
@@ -252,7 +252,7 @@ h1 {
   white-space: normal;
   overflow-wrap: break-word;
   word-break: break-word;
-  line-height: 1;
+  line-height: 1.5;
 }
 
 .done-button {
