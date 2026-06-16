@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-function viewProjects(){
+function viewTaskCounter(){
   router.push({ name: 'task-counter' })
 }
 
@@ -16,117 +16,172 @@ function viewTaskList(){
 <template>
   <section class="introduction">
     <div class="intro-text">
+      <p class="intro-eyebrow">Application & Web Developer Intern @ IBM</p>
+
       <h1 class="intro-title">
-        Build with Miracle:
-        <span class="text-green">
-          Web Projects in Vue.js
-        </span>
+        Build with Miracle
+        <span class="text-green">/ Vue.js</span>
       </h1>
 
       <p class="intro-description">
-        Hi! I'm Gichelle Miracle 奇跡 Burwell, an Application and Web Developer Intern at IBM.<br/><br/>
-        Explore my collection of Vue.js projects that showcase my skills in
-        front-end development, problem-solving, and user-focused design.
+        Hi, I'm <strong>Gichelle Miracle 奇跡 Burwell</strong>. Explore my Vue.js
+        projects showcasing front-end development, problem-solving, and
+        user-focused design.
       </p>
 
-      <!--temporary button-->
-      <button class="view-button" @click="viewProjects">
-        View Task 1: Task Counter
-      </button>
-
-      <!--temporary button-->
-      <button class="view-button" @click="viewTaskList">
-        View Task 2: Task List
-      </button>
+      <div class="intro-actions">
+        <button class="view-button" @click="viewTaskCounter">Task Counter</button>
+        <button class="view-button" @click="viewTaskList">Task List</button>
+      </div>
     </div>
 
     <div class="intro-image">
-      <img
-        :src="DeveloperImage"
-        alt="Developer photo"
-      />
+      <img :src="DeveloperImage" alt="Gichelle Miracle Burwell" />
     </div>
   </section>
 </template>
 
 <style scoped>
 .introduction {
-  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 4rem;
-  padding: 4rem 2rem;
+  gap: 3rem;
+  padding: 6rem 2rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+/* ── Left column ── */
 .intro-text {
   flex: 1;
-  max-width: 650px;
-}
-
-.intro-title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--color-text);
-  margin-bottom: 1.5rem;
+  max-width: 600px;
   text-align: left;
 }
 
-.intro-description {
-  font-size: 1.2rem;
-  line-height: 1.5;
+.intro-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-green);
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.intro-title {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.15;
   color: var(--color-text);
+  margin-bottom: 1.25rem;
+}
 
-  opacity: 0.85;
-
+.intro-description {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text);
+  opacity: 0.8;
   margin-bottom: 2rem;
+  max-width: 480px;
+}
+
+/* ── CTA buttons ── */
+.intro-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .view-button {
   background: var(--color-green);
   color: var(--color-background);
-  border: none;
-  border-radius: 10px;
-  padding: 0.9rem 1.5rem;
-  font-size: 1rem;
+  border: 2px solid var(--color-green);
+  border-radius: 8px;
+  padding: 0.65rem 1.4rem;
+  font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .view-button:hover {
-  opacity: 0.9;
+  opacity: 0.85;
   transform: translateY(-2px);
 }
 
+.view-button--outline {
+  background: transparent;
+  color: var(--color-green);
+}
+
+.view-button--outline:hover {
+  background: var(--color-green);
+  color: var(--color-background);
+  opacity: 1;
+}
+
+/* ── Right column ── */
 .intro-image {
   flex: 1;
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
 }
 
 .intro-image img {
-  width: 100%;
-  max-width: 500px;
+  width: 500px;
+  max-width: 100%;
   border-radius: 20px;
   object-fit: cover;
+  object-position: top;
 }
 
-@media (max-width: 900px) {
+/* ── Tablet ── */
+@media (max-width: 800px) {
   .introduction {
     flex-direction: column-reverse;
-    text-align: center;
-
-    padding: 2rem 1rem;
+    padding: 5rem 1.5rem 3rem;
+    gap: 2rem;
   }
 
-  .intro-title {
-    font-size: 2.5rem;
+  .intro-text {
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .intro-description {
+    max-width: 100%;
+  }
+
+  .intro-actions {
+    justify-content: center;
+  }
+
+  .intro-image {
+    justify-content: center;
   }
 
   .intro-image img {
-    max-width: 300px;
+    width: 300px;
+  }
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .introduction {
+    padding: 4.5rem 1rem 2rem;
+  }
+
+  .intro-title {
+    font-size: 1.6rem;
+  }
+
+  .intro-actions {
+    flex-direction: column;
+  }
+
+  .view-button {
+    width: 100%;
   }
 }
 </style>

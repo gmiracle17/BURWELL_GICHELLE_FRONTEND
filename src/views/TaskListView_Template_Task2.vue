@@ -5,17 +5,49 @@
 =============================================================
 -->
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import TaskCard from './TaskCard_Template_Task2.vue'
 
 // TODO 1: Create a ref() tasks array with at least 3 sample tasks
 // Each task: { id, name, done, dueDate }
 // const tasks = ref([...])
 const tasks = ref([
-  { id: 1, name: 'Setup Lab Environment', done: false, dueDate: '2026-06-16', priority: 'Low' },
-  { id: 2, name: 'Complete Task List', done: true, dueDate: '2026-06-16', priority: 'High' },
-  { id: 3, name: 'Complete Task Card', done: false, dueDate: '2026-06-16', priority: 'Low' }])
+  { id: 1, name: 'Setup Lab Environment',  done: false, dueDate: '2026-06-16', priority: 'Low'    },
+  { id: 2, name: 'Complete Task List',     done: true,  dueDate: '2026-06-16', priority: 'High'   },
+  { id: 3, name: 'Complete Task Card',     done: false, dueDate: '2026-06-16', priority: 'Medium' }
+])
 
+// Filter
+const filter = ref('All')
+const filterOptions = ['All', 'Pending', 'Done']
+
+const filteredTasks = computed(() => {
+  if (filter.value === 'Pending') return tasks.value.filter(t => !t.done)
+  if (filter.value === 'Done')    return tasks.value.filter(t =>  t.done)
+  return tasks.value
+})
+
+const doneCount    = computed(() => tasks.value.filter(t =>  t.done).length)
+const pendingCount = computed(() => tasks.value.filter(t => !t.done).length)
+
+let nextId = 4
+const newTaskName = ref('')
+const newTaskDate = ref('')
+const newTaskPriority = ref('Low')
+
+function addTask() {
+  if (!newTaskName.value.trim()) return
+  tasks.value.push({
+    id: nextId++,
+    name: newTaskName.value.trim(),
+    done: false,
+    dueDate: newTaskDate.value || '-',
+    priority: newTaskPriority.value
+  })
+  newTaskName.value = ''
+  newTaskDate.value = ''
+  newTaskPriority.value = 'Low'
+}
 // TODO 2: Write handleComplete(id) — toggle the done state of the task with this id
 function handleComplete(id) {
   // your code here
@@ -23,9 +55,7 @@ function handleComplete(id) {
   const task = tasks.value.find(t => t.id === id);
   
   // Toggle the done status if the task exists
-  if (task) {
-    task.done = !task.done;
-  }
+  if (task) task.done = !task.done
 }
 
 // TODO 3: Write handleDelete(id) — remove the task with this id from the array
@@ -34,11 +64,61 @@ function handleDelete(id) {
   // Remove the task with the matching id from the tasks array
   tasks.value = tasks.value.filter(task => task.id !== id);
 }
+
+// Edit name based on id
+function handleEdit(id) {
+  // Find the task by id
+  const task = tasks.value.find(t => t.id === id)
+
+  // Toggle the done status if the task exists
+  if (task) task.isEditing = !task.isEditing
+}
+
+function handleUpdate(id, newName) {
+  const task = tasks.value.find(t => t.id === id)
+  if (task) task.name = newName
+}
+
+function handlePriorityUpdate(id, newPriority) {
+  const task = tasks.value.find(t => t.id === id)
+  if (task) task.priority = newPriority
+}
+
 </script>
 
 <template>
-  <div class="task-list-view">
+  <div class="app">
     <h1>My Tasks</h1>
+
+    <div class="input-row">
+      <input
+        v-model="newTaskName"
+        @keyup.enter="addTask"
+        placeholder="New task name..."
+      />
+      <input
+        v-model="newTaskDate"
+        type="date"
+        class="date-input"
+      />
+      <select v-model="newTaskPriority" class="priority-select">
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+      <button @click="addTask" class="btn-add">Add</button>
+    </div>
+
+    <div class="filter-buttons">
+      <button :class="{ active: filter === 'All' }" @click="filter = 'All'">All ({{ doneCount + pendingCount }})</button>
+      <button :class="{ active: filter === 'Pending' }" @click="filter = 'Pending'">Pending ({{ pendingCount }})</button>
+      <button :class="{ active: filter === 'Done' }" @click="filter = 'Done'">Done ({{ doneCount }})</button>
+      
+      <button class="clear-done" @click="clearAllDone" :disabled="doneCount === 0">
+        <font-awesome-icon icon="fa-trash" />
+        Clear Done
+      </button>
+    </div>
 
     <!-- TODO 4: Render a <TaskCard> for each task using v-for
          - Pass :task="task" as a prop
@@ -46,31 +126,28 @@ function handleDelete(id) {
          - Listen @delete="handleDelete"
          - Fill the "meta" named slot with the due date
     -->
-    <div v-if="tasks.length === 0" class="empty">No tasks</div>
-    <div v-else>
+    <div v-if="filteredTasks.length === 0" class="empty">
+      No tasks!
+    </div>
+    <ul v-else class="task-list">
       <TaskCard
-        v-for="task in tasks"
+        v-for="task in filteredTasks"
         :key="task.id"
         :task="task"
-        :priority="Low"
         @complete="handleComplete"
         @delete="handleDelete"
+        @update="handleUpdate"
+        @update-priority="handlePriorityUpdate"
       >
-        <template #meta>
-          Due: {{ task.dueDate }}
-        </template>
+        <template #meta>Due: {{ task.dueDate }}</template>
       </TaskCard>
-    </div>
-    
+    </ul>
   </div>
 </template>
 
 <style scoped>
-.task-list-view {
-  max-width: 520px;
-  margin: 40px auto;
-  padding: 24px;
-  font-family: Arial, sans-serif;
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
 }
-h1 { color: white ; margin-bottom: 24px; margin-top: 24px;}
 </style>

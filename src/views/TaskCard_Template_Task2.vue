@@ -63,7 +63,7 @@ HINTS (read only if stuck)
 <script setup>
 // TODO 1: import defineProps and defineEmits (they are compiler macros — no import needed
 //          but you DO need to call them)
-import { defineProps, defineEmits } from 'vue'
+import { ref, defineProps, defineEmits } from 'vue'
 
 // Created ref and computed for task priority filter extension
 // TODO 2: Define the task prop with type Object, required: true
@@ -71,27 +71,82 @@ import { defineProps, defineEmits } from 'vue'
 const props = defineProps({
   task: {
     type: Object,
-    required: true,
-    priority: String
+    required: true
   }
 })
 
 // TODO 3: Define emits for 'complete' and 'delete'
 // const emit = defineEmits([...])
-const emit = defineEmits(['complete', 'delete'])
+const emit = defineEmits(['complete', 'delete', 'update', 'update-priority'])
+
+// Edit state and Edit name
+const isEditing = ref(false)
+const editName = ref('')
+
+function startEdit() {
+  editName.value = props.task.name
+  isEditing.value = true
+}
+
+function saveEdit() {
+  if (editName.value.trim()) {
+    emit('update', props.task.id, editName.value.trim())
+  }
+  isEditing.value = false
+}
+
+function cancelEdit() {
+  isEditing.value = false
+}
+
+const priorityClass = {
+  Low: 'priority-low',
+  Medium: 'priority-medium',
+  High: 'priority-high'
+}
+
 </script>
 
 <template>
   <!-- TODO 4: Wrap everything in a div with class "task-card"
                Add :class="{ completed: task.done }" to the wrapper div -->
-  <div class="task-card">
+  <div class="task-card" :class="{ completed: props.task.done }">
 
     <div class="task-header">
       <!-- TODO 5: Display the task name -->
-      <span class="task-name">{{ props.task.name }}</span>
+      <!-- Input for new task name with v-model and @keyup.enter to trigger addTask -->
+      <div v-if="isEditing" class="edit-row">
+        <input
+          v-model="editName"
+          @keyup.enter="saveEdit"
+          @keyup.escape="cancelEdit"
+          class="edit-input"
+          placeholder="Edit task name..."
+          autofocus
+        />
+        <button @click="saveEdit" class="btn-save">✓</button>
+        <button @click="cancelEdit" class="btn-cancel">✕</button>
+      </div>
+      
+      <div v-else class="name-row">
+        <span 
+          class="task-name task-text" 
+          :class="{ done: props.task.done }"
+          @click="startEdit"
+        >
+          {{ props.task.name }}
+        </span>
+        <span
+          v-if="props.task.priority"
+          class="priority"
+          :class="props.task.priority.toLowerCase()"
+        >
+          {{ props.task.priority }}
+        </span>
+      </div>
       <!-- TODO 6: Add the named slot for metadata -->
       <!-- <slot name="meta" /> -->
-      <div class="meta">
+      <div class="meta meta-slot">
         <slot name="meta" />
       </div>
     </div>
@@ -100,20 +155,29 @@ const emit = defineEmits(['complete', 'delete'])
       <!-- TODO 7: Add Complete/Undo button — text changes based on task.done -->
       <!--         @click should emit 'complete' with task.id as payload -->
 
-      <button @click="emit('complete',props.task.id)" class="btn-complete">
+      <button @click="emit('complete', props.task.id)" class="btn-complete task-checkbox-btn">
         {{ props.task.done ? 'Undo' : 'Complete' }}
       </button>
-      <!-- TODO 8: Add Delete button — emits 'delete' with task.id -->
-      <button @click="emit('delete',props.task.id)" class="btn-delete">
+
+      <button v-if="!isEditing" @click="startEdit" class="btn-edit">
+        Edit
+      </button>
+      <button v-else disabled style="opacity: 0; width: 0; padding: 0;"></button>
+      
+      <button @click="emit('delete', props.task.id)" class="btn-delete remove-button-alt">
         Delete
       </button>
 
       <!-- Select dropdown for task priority -->
-      <select v-model="task.priority":class="task.priority">
-        <option disabled>Priority</option>
-        <option>Low</option>
-        <option>Medium</option>
-        <option>High</option>
+      <select 
+        :value="props.task.priority" 
+        class="priority-select inline-select"
+        @change="emit('update-priority', props.task.id, $event.target.value)"
+      >
+        <option disabled value="">Priority</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
       </select>
     </div>
   </div>
@@ -121,51 +185,131 @@ const emit = defineEmits(['complete', 'delete'])
 
 <style scoped>
 .task-card {
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  padding: 14px 16px;
+  background: #1e2d45;
+  border: 1px solid #2e4060;
+  border-radius: 12px;
+  padding: 16px 18px;
   margin-bottom: 12px;
-  transition: all 0.2s;
-  color: #1B2A4A;
-  min-width: 360px;
+  transition: all 0.2s ease;
+  color: #e2e8f0;
 }
+
+.task-card:hover {
+  border-color: #42B883;
+  box-shadow: 0 2px 12px rgba(66, 184, 131, 0.1);
+}
+
 .task-card.completed {
-  background: #f0fdf4;
-  border-color: #86efac;
-  opacity: 0.8;
+  background: #162d22;
+  border-color: #42B883;
+  opacity: 0.75;
 }
+
 .task-header {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.name-row {
+  display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
-.task-header span.name {
+
+.task-name {
   font-weight: 600;
-  color: #1B2A4A;
+  font-size: 0.95rem;
+  color: #e2e8f0;
 }
-.task-header .meta {
-  color: #9ca3af;
+
+.task-name--done {
+  text-decoration: line-through;
+  color: #64748b;
 }
+
+.priority-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.priority-low    { background: #1e3a2f; color: #4ade80; }
+.priority-medium { background: #3a2e1e; color: #fb923c; }
+.priority-high   { background: #3a1e1e; color: #f87171; }
+
+.meta {
+  font-size: 0.78rem;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.edit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.edit-input {
+  flex: 1;
+  background: #0f1e30;
+  border: 1px solid #42B883;
+  border-radius: 6px;
+  padding: 5px 10px;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  outline: none;
+}
+
 .task-actions {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
-.btn-complete {
+
+.btn-complete, .btn-edit, .btn-delete, .btn-save, .btn-cancel {
   padding: 5px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.btn-complete, .btn-edit, .btn-save {
   background: #42B883;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  color: #fff;
 }
+
 .btn-delete {
-  padding: 5px 14px;
-  background: #fee2e2;
-  color: #dc2626;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+}
+
+.btn-cancel {
+  background: #2e4060;
+  color: #94a3b8;
+}
+
+.btn-complete:hover, .btn-edit:hover, .btn-save:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.btn-delete:hover {
+  background: rgba(239, 68, 68, 0.28);
+  transform: translateY(-1px);
+}
+
+.btn-cancel:hover {
+  background: #3a4f6a;
 }
 </style>
