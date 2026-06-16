@@ -147,17 +147,17 @@ function clearAllDone() {
     <!-- TODO 8: Add an "Add Task" button with @click="addTask" -->
     <div class="input-row">
       
-      // Input for new task name with v-model and @keyup.enter to trigger addTask
+      <!-- Input for new task name with v-model and @keyup.enter to trigger addTask -->
       <input v-model="newTaskName" @keyup.enter="addTask" placeholder="Enter a new task"/>
       
-      // Select dropdown for task priority
-      <select v-model="selectedPriority"class="priority-select">
+      <!-- Select dropdown for task priority -->
+      <select v-model="selectedPriority" class="priority-select">
         <option>Low</option>
         <option>Medium</option>
         <option>High</option>
       </select>
 
-      // Add Task button
+      <!-- Add Task button -->
       <button @click="addTask">
         Add Task
       </button>
@@ -170,8 +170,8 @@ function clearAllDone() {
       <button :class="{ active: selectedFilter === 'done' }" @click="selectedFilter = 'done'">Done ({{ doneCount }})</button>
       <button :class="{ active: selectedFilter === 'pending' }" @click="selectedFilter = 'pending'">Pending ({{ pendingCount }})</button>
       
-      // Clear All Done button, disabled when there are no done tasks
-      <button class="clear-done"@click="clearAllDone":disabled="doneCount === 0">
+      <!-- Clear All Done button, disabled when there are no done tasks -->
+      <button class="clear-done" @click="clearAllDone" :disabled="doneCount === 0">
         <font-awesome-icon icon="fa-trash" />
         Clear Done
       </button>
@@ -190,21 +190,21 @@ function clearAllDone() {
       <ul class="task-list">
         <li  v-for="task in filteredTasks" :key="task.id">
           
-          // Checkbox to mark task as done, bound to task.done with v-model
+          <!-- Checkbox to mark task as done, bound to task.done with v-model -->
           <input type="checkbox" v-model="task.done" class="task-checkbox"/>
           
-          // Task name with conditional class for done status and priority label
-          <div class="task-text":class="{ done: task.done }">
+          <!-- Task name with conditional class for done status and priority label -->
+          <div class="task-text" :class="{ done: task.done }">
             {{ task.name }}
             
-            // Priority label with dynamic class based on task.priority
-            <span class="priority":class="task.priority.toLowerCase()">
+            <!-- Priority label with dynamic class based on task.priority -->
+            <span class="priority" :class="task.priority.toLowerCase()">
               {{ task.priority }}
             </span>
           
           </div>
           
-          // Remove button to delete the task, calls removeTask with task.id
+          <!-- Remove button to delete the task, calls removeTask with task.id -->
           <button @click="removeTask(task.id)" class="remove-button">X</button>
         </li>
       </ul>
