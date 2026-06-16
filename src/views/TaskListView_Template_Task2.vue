@@ -12,9 +12,9 @@ import TaskCard from './TaskCard_Template_Task2.vue'
 // Each task: { id, name, done, dueDate }
 // const tasks = ref([...])
 const tasks = ref([
-  { id: 1, name: 'Setup Lab Environment', done: false, dueDate: '2026-06-16' },
-  { id: 2, name: 'Complete Task List', done: true, dueDate: '2026-06-16' },
-  { id: 3, name: 'Complete Task Card', done: false, dueDate: '2026-06-16' }])
+  { id: 1, name: 'Setup Lab Environment', done: false, dueDate: '2026-06-16', priority: 'Low' },
+  { id: 2, name: 'Complete Task List', done: true, dueDate: '2026-06-16', priority: 'High' },
+  { id: 3, name: 'Complete Task Card', done: false, dueDate: '2026-06-16', priority: 'Low' }])
 
 // TODO 2: Write handleComplete(id) — toggle the done state of the task with this id
 function handleComplete(id) {
@@ -52,6 +52,7 @@ function handleDelete(id) {
         v-for="task in tasks"
         :key="task.id"
         :task="task"
+        :priority="Low"
         @complete="handleComplete"
         @delete="handleDelete"
       >

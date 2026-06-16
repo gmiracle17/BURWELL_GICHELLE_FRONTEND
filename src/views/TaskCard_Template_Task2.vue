@@ -64,12 +64,15 @@ HINTS (read only if stuck)
 // TODO 1: import defineProps and defineEmits (they are compiler macros — no import needed
 //          but you DO need to call them)
 import { defineProps, defineEmits } from 'vue'
+
+// Created ref and computed for task priority filter extension
 // TODO 2: Define the task prop with type Object, required: true
 // const props = defineProps({ ... })
 const props = defineProps({
   task: {
     type: Object,
-    required: true
+    required: true,
+    priority: String
   }
 })
 
@@ -104,6 +107,14 @@ const emit = defineEmits(['complete', 'delete'])
       <button @click="emit('delete',props.task.id)" class="btn-delete">
         Delete
       </button>
+
+      <!-- Select dropdown for task priority -->
+      <select v-model="task.priority":class="task.priority">
+        <option disabled>Priority</option>
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+      </select>
     </div>
   </div>
 </template>
