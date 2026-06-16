@@ -1,0 +1,71 @@
+@import './base.css';
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: #41B883;
+  transition: 0.3s ease;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: rgba(65, 184, 131, 0.15);
+    border-radius: 4px;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+}
+
+/* Utility Classes */
+
+.bg-primary {
+  background-color: #151D28;
+}
+
+.bg-secondary {
+  background-color: #1F2933;
+}
+
+.bg-tertiary {
+  background-color: #3E4E5E;
+}
+
+.text-primary {
+  color: #ffffff;
+}
+
+.text-muted {
+  color: #cbd5e1;
+}
+
+.text-green {
+  color: #41B883;
+}
+
+.text-danger {
+  color: #CE2424;
+}
+
+.border-custom {
+  border: 1px solid rgba(62, 78, 94, 0.4);
+}
+
+.card {
+  background: #1F2933;
+  border: 1px solid rgba(62, 78, 94, 0.4);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
