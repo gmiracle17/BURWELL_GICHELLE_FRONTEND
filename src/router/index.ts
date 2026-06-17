@@ -5,6 +5,7 @@ import TaskCounter from '@/views/task1/TaskCounter.vue'
 import TaskListView from '@/views/task2/TaskListView.vue'
 import HomeView from '@/views/task3/HomeView.vue'
 import TaskDetailView from '@/views/task3/TaskDetailView.vue'
+import TaskStatsView from '@/views/task3/StatsView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -13,7 +14,8 @@ const router = createRouter({
     { path: '/task-counter', name: 'task-counter', component: TaskCounter,},
     { path: '/task-list', name: 'task-list', component: TaskListView,},
     { path: '/task-home', name: 'task-home', component: HomeView,},
-    { path: '/task/:id', component: TaskDetailView, meta: { requiresTask: true }}
+    { path: '/task/:id', component: TaskDetailView, meta: { requiresTask: true }},
+    { path: '/task-stats', name: 'task-stats', component: TaskStatsView}
   ],
 })
 

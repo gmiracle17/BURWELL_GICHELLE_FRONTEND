@@ -272,3 +272,22 @@ h1 {
     width: 100%;
   }
 }
+
+.page-nav a {
+  margin-right: 1rem;
+  color: var(--color-text, #e2e8f0);
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.page-nav a:hover {
+  color: var(--color-green, #42B883);
+}
+
+.page-nav a.router-link-exact-active {
+  color: var(--color-green, #42B883);
+  border-bottom-color: var(--color-green, #42B883);
+  font-weight: 700;
+}
