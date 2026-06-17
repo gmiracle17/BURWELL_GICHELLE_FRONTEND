@@ -64,10 +64,12 @@ HINTS (read only if stuck)
 // TODO 1: import defineProps and defineEmits (they are compiler macros — no import needed
 //          but you DO need to call them)
 import { ref, defineProps, defineEmits } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 // Created ref and computed for task priority filter extension
 // TODO 2: Define the task prop with type Object, required: true
 // const props = defineProps({ ... })
+
 const props = defineProps({
   task: {
     type: Object,
@@ -103,6 +105,12 @@ const priorityClass = {
   Low: 'priority-low',
   Medium: 'priority-medium',
   High: 'priority-high'
+}
+const route  = useRoute()
+const router = useRouter()
+
+function goToDetails(id) {
+  router.push({ name: 'task-details', params: { id: id } })
 }
 
 </script>
@@ -155,6 +163,7 @@ const priorityClass = {
       <!-- TODO 7: Add Complete/Undo button — text changes based on task.done -->
       <!--         @click should emit 'complete' with task.id as payload -->
 
+      <button @click="goToDetails(props.task.id)" class="btn-complete">View Details</button>
       <button @click="emit('complete', props.task.id)" class="btn-complete task-checkbox-btn">
         {{ props.task.done ? 'Undo' : 'Complete' }}
       </button>
@@ -185,7 +194,6 @@ const priorityClass = {
 
 <style scoped>
 .task-card {
-  background: #1e2d45;
   border: 1px solid #2e4060;
   border-radius: 12px;
   padding: 16px 18px;

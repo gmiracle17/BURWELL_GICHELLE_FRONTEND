@@ -6,7 +6,7 @@
 -->
 <script setup>
 import { computed, ref } from 'vue'
-import TaskCard from './TaskCard_Template_Task2.vue'
+import TaskCard from './TaskCard.vue'
 
 // TODO 1: Create a ref() tasks array with at least 3 sample tasks
 // Each task: { id, name, done, dueDate }

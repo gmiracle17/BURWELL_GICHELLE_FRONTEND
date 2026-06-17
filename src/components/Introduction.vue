@@ -11,6 +11,10 @@ function viewTaskCounter(){
 function viewTaskList(){
   router.push({ name: 'task-list' })
 }
+
+function viewTask3(){
+  router.push({ name: 'task-list'})
+}
 </script>
 
 <template>
@@ -32,6 +36,7 @@ function viewTaskList(){
       <div class="intro-actions">
         <button class="view-button" @click="viewTaskCounter">Task Counter</button>
         <button class="view-button" @click="viewTaskList">Task List</button>
+        <button class="view-button" @click="viewTask3">Task 3</button>
       </div>
     </div>
 
