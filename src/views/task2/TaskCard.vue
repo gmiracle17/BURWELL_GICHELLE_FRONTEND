@@ -185,7 +185,7 @@ const priorityClass = {
 
 <style scoped>
 .task-card {
-  background: #1e2d45;
+  background: var(--color-background);
   border: 1px solid #2e4060;
   border-radius: 12px;
   padding: 16px 18px;
@@ -213,13 +213,6 @@ const priorityClass = {
   gap: 12px;
 }
 
-.name-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
 .task-name {
   font-weight: 600;
   font-size: 0.95rem;
@@ -230,20 +223,6 @@ const priorityClass = {
   text-decoration: line-through;
   color: #64748b;
 }
-
-.priority-badge {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: 999px;
-}
-
-.priority-low    { background: #1e3a2f; color: #4ade80; }
-.priority-medium { background: #3a2e1e; color: #fb923c; }
-.priority-high   { background: #3a1e1e; color: #f87171; }
-
 .meta {
   font-size: 0.78rem;
   color: #64748b;
@@ -260,7 +239,7 @@ const priorityClass = {
 .edit-input {
   flex: 1;
   background: #0f1e30;
-  border: 1px solid #42B883;
+  border: 1px solid var(--color-green);
   border-radius: 6px;
   padding: 5px 10px;
   color: #e2e8f0;
@@ -285,7 +264,7 @@ const priorityClass = {
 }
 
 .btn-complete, .btn-edit, .btn-save {
-  background: #42B883;
+  background: var(--color-green);
   color: #fff;
 }
 

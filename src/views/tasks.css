@@ -1,14 +1,15 @@
 .app {
   width: min(600px, calc(100vw - 2rem));
-  margin: 60px auto;
+  margin-top: 60px; 
   padding: 1.5rem;
-  background: var(--color-background-soft, #1e2d45);
-  border: 1px solid var(--color-border, #2e4060);
+  background: var(--color-background-soft);
+  border: 1px solid var(--color-border);
   border-radius: 14px;
+  align-self: top;
 }
 
 h1 {
-  color: var(--color-text, #e2e8f0);
+  color: var(--color-text);
   font-size: 1.75rem;
   font-weight: 700;
   margin-bottom: 1.25rem;
@@ -24,9 +25,9 @@ h1 {
 .input-row input {
   flex: 1;
   padding: 0.6rem 0.8rem;
-  background: var(--color-background, #0f1e30);
+  background: var(--color-background);
   color: var(--color-text, #e2e8f0);
-  border: 1px solid var(--color-border, #2e4060);
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   font-size: 0.95rem;
 }
@@ -38,13 +39,13 @@ h1 {
 
 .input-row input:focus {
   outline: none;
-  border-color: var(--color-green, #42B883);
+  border-color: var(--color-green);
 }
 
 .input-row button {
   padding: 0.6rem 1.2rem;
-  background: var(--color-green, #42B883);
-  color: var(--color-background, #0f1e30);
+  background: var(--color-green);
+  color: var(--color-background);
   border: none;
   border-radius: 6px;
   font-weight: 700;
@@ -71,21 +72,21 @@ h1 {
   padding: 0.4rem 0.8rem;
   font-size: 0.9rem;
   background: transparent;
-  color: var(--color-text, #e2e8f0);
-  border: 1px solid var(--color-border, #2e4060);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
   border-radius: 999px;
   cursor: pointer;
   transition: 0.3s ease;
 }
 
 .filter-buttons button:hover {
-  border-color: var(--color-green, #42B883);
+  border-color: var(--color-green);
 }
 
 .filter-buttons button.active {
-  background: var(--color-green, #42B883);
-  color: var(--color-background, #0f1e30);
-  border-color: var(--color-green, #42B883);
+  background: var(--color-green);
+  color: var(--color-background);
+  border-color: var(--color-green);
 }
 
 .filter-buttons .clear-done {
@@ -94,7 +95,7 @@ h1 {
   gap: 0.35rem;
   background: transparent;
   color: #f87171;
-  border: 1px solid var(--color-red, #ef4444);
+  border: 1px solid var(--color-red);
   margin-left: auto;
   padding: 0.4rem 0.8rem;
   border-radius: 999px;
@@ -104,25 +105,25 @@ h1 {
 }
 
 .filter-buttons .clear-done:hover:not(:disabled) {
-  background: var(--color-red, #ef4444);
+  background: var(--color-red);
   color: white;
-  border: 1px solid var(--color-red, #ef4444);
+  border: 1px solid var(--color-red);
 }
 
 .filter-buttons .clear-done:disabled {
   opacity: 0.25;
   cursor: not-allowed;
   color: var(--color-text, #e2e8f0);
-  border-color: var(--color-border, #2e4060);
+  border-color: var(--color-border);
 }
 
 .priority-select {
   appearance: none;
   -webkit-appearance: none;
   padding: 0.6rem 2rem 0.6rem 0.8rem;
-  background-color: var(--color-background, #0f1e30);
+  background-color: var(--color-background);
   color: var(--color-text, #e2e8f0);
-  border: 1px solid var(--color-border, #2e4060);
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%2341B883' viewBox='0 0 16 16'%3E%3Cpath d='M1.5 5.5 8 12l6.5-6.5' stroke='%2341B883' stroke-width='2' fill='none'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
@@ -131,16 +132,16 @@ h1 {
 }
 
 .priority-select:hover {
-  border-color: var(--color-green, #42B883);
+  border-color: var(--color-green);
 }
 
 .priority-select:focus {
   outline: none;
-  border-color: var(--color-green, #42B883);
+  border-color: var(--color-green);
 }
 
 .priority-select option {
-  background: var(--color-background-soft, #1e2d45);
+  background: var(--color-background-soft);
   color: var(--color-text, #e2e8f0);
 }
 
@@ -153,9 +154,9 @@ h1 {
   display: inline-block;
 }
 
-.priority.low { background: rgba(65, 184, 131, 0.15); color: var(--color-green, #42B883); }
+.priority.low { background: rgba(65, 184, 131, 0.15); color: var(--color-green); }
 .priority.medium { background: rgba(255, 193, 7, 0.15); color: #FFC107; }
-.priority.high { background: rgba(206, 36, 36, 0.15); color: var(--color-red, #ef4444); }
+.priority.high { background: rgba(206, 36, 36, 0.15); color: var(--color-red); }
 
 .empty {
   text-align: center;
@@ -177,14 +178,14 @@ h1 {
   font-size: 1rem;
   padding: 0.75rem 1rem;
   margin-bottom: 0.5rem;
-  background: var(--color-background, #0f1e30);
-  border: 1px solid var(--color-border, #2e4060);
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   transition: border-color 0.2s ease;
 }
 
 .task-list li:hover {
-  border-color: var(--color-green, #42B883);
+  border-color: var(--color-green);
 }
 
 .task-checkbox {
@@ -192,7 +193,7 @@ h1 {
   -webkit-appearance: none;
   width: 20px;
   height: 20px;
-  border: 2px solid var(--color-green, #42B883);
+  border: 2px solid var(--color-green);
   border-radius: 4px;
   background: transparent;
   cursor: pointer;
@@ -204,19 +205,19 @@ h1 {
 }
 
 .task-checkbox:checked {
-  background: var(--color-green, #42B883);
+  background: var(--color-green);
 }
 
 .task-checkbox:checked::after {
   content: "✓";
-  color: var(--color-background, #0f1e30);
+  color: var(--color-background);
   font-size: 13px;
   font-weight: 700;
 }
 
 .task-text {
   flex: 1;
-  color: var(--color-text, #e2e8f0);
+  color: var(--color-text);
   white-space: normal;
   overflow-wrap: break-word;
   word-break: break-word;
@@ -232,8 +233,8 @@ h1 {
   width: 26px;
   height: 26px;
   background: transparent;
-  color: var(--color-red, #ef4444);
-  border: 1px solid var(--color-red, #ef4444);
+  color: var(--color-red);
+  border: 1px solid var(--color-red);
   border-radius: 6px;
   font-weight: 700;
   cursor: pointer;
@@ -247,7 +248,7 @@ h1 {
 }
 
 .remove-button:hover {
-  background: var(--color-red, #ef4444);
+  background: var(--color-red);
   color: white;
   transform: translateY(-1px);
 }
@@ -267,8 +268,7 @@ h1 {
     flex-wrap: wrap;
   }
 
-  .input-row button,
-  .remove-button {
+  .input-row button, .remove-button {
     width: 100%;
   }
 }

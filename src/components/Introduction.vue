@@ -11,6 +11,10 @@ function viewTaskCounter(){
 function viewTaskList(){
   router.push({ name: 'task-list' })
 }
+
+function viewTaskHome(){
+  router.push({ name: 'task-home'})
+}
 </script>
 
 <template>
@@ -30,8 +34,9 @@ function viewTaskList(){
       </p>
 
       <div class="intro-actions">
-        <button class="view-button" @click="viewTaskCounter">Task Counter</button>
-        <button class="view-button" @click="viewTaskList">Task List</button>
+        <button class="view-button" @click="viewTaskCounter">Task 1</button>
+        <button class="view-button" @click="viewTaskList">Task 2</button>
+        <button class="view-button" @click="viewTaskHome">Task 3</button>
       </div>
     </div>
 
@@ -75,6 +80,7 @@ function viewTaskList(){
   line-height: 1.15;
   color: var(--color-text);
   margin-bottom: 1.25rem;
+  text-align: left;
 }
 
 .intro-description {

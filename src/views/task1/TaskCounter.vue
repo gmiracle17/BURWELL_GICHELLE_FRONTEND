@@ -60,7 +60,7 @@ FILE STRUCTURE (this is a single-file component)
 
 <script setup>
 import { ref, computed } from 'vue'
-import './tasks.css'
+import '../tasks.css'
 
 // TODO 1: Create a ref for the text input value (initial value: '')
 const newTaskName = ref('')
