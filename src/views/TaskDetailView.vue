@@ -29,7 +29,7 @@ const props = defineProps({
 
 // TODO 3: Write goBack() using router.push() to navigate to '/home'
 function goBack() {
-    router.push({name: 'home'})
+    router.push({name: 'task-list'})
   // your code here
 }
 
