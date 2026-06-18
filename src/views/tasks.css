@@ -1,5 +1,5 @@
 .app {
-  width: min(600px, calc(100vw - 2rem));
+  width: min(800px, calc(100vw - 2rem));
   margin-top: 60px; 
   padding: 1.5rem;
   background: var(--color-background-soft);

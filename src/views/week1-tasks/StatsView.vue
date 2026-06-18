@@ -1,15 +1,13 @@
-
-
 <script setup>
-import { computed } from 'vue'
 import { useRouter } from 'vue-router' 
+import { storeToRefs } from 'pinia'
 import { useTaskStore } from '@/stores/taskStore'
 
 const taskStore = useTaskStore()
 const router = useRouter()
-const totalCount = computed(() => taskStore.tasks.length)
-const doneCount = computed(() => taskStore.tasks.filter(t => t.done).length)
-const pendingCount = computed(() => totalCount.value - doneCount.value)
+
+// storeToRefs to pull pre-calculated global counts safely
+const { totalCount, doneCount, pendingCount } = storeToRefs(taskStore)
 
 function goBack() {
   router.push('/task-home')
@@ -19,18 +17,22 @@ function goBack() {
 <template>
   <div class="app stats-app">
     <div class="back-btn-wrapper">
-        <button class="back-btn" @click="goBack">← Back to Tasks</button>
+      <button class="back-btn" @click="goBack">← Back to Tasks</button>
     </div>
+    
     <h1>Task Stats</h1>
+    
     <div class="stats-grid">
       <div class="stat-card total">
         <span class="stat-number">{{ totalCount }}</span>
         <span class="stat-label">Total</span>
       </div>
+      
       <div class="stat-card doneCount">
         <span class="stat-number">{{ doneCount }}</span>
         <span class="stat-label">Done</span>
       </div>
+      
       <div class="stat-card pending">
         <span class="stat-number">{{ pendingCount }}</span>
         <span class="stat-label">Pending</span>
@@ -68,7 +70,6 @@ function goBack() {
   font-size: 2rem; 
   font-weight: 700; 
   line-height: 1;
-  text-decoration: none !important;
 }
 
 /* Color accents based on card states */
@@ -83,14 +84,6 @@ function goBack() {
   letter-spacing: 0.05em;
   font-weight: 600;
 }
-
-@media (max-width: 480px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-}
-
 
 .back-btn-wrapper {
   margin-bottom: 1rem;
@@ -110,5 +103,12 @@ function goBack() {
 .back-btn:hover { 
   border-color: var(--color-green);
   color: var(--color-green);
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
 }
 </style>
