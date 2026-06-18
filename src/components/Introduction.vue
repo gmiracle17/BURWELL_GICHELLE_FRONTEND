@@ -36,7 +36,7 @@ function viewTaskHome(){
       <div class="intro-actions">
         <button class="view-button" @click="viewTaskCounter">Task 1</button>
         <button class="view-button" @click="viewTaskList">Task 2</button>
-        <button class="view-button" @click="viewTaskHome">Task 3</button>
+        <button class="view-button" @click="viewTaskHome">Task 3-4</button>
       </div>
     </div>
 
