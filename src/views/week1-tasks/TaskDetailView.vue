@@ -19,9 +19,8 @@ const taskStore = useTaskStore()
 // Remember: route.params.id is a STRING — cast to Number before comparing
 const task = computed(() => taskStore.tasks.find(t => t.id === Number(route.params.id)))
 
-// TODO 3: Write goBack() using router.push() to navigate to '/home'
+// TODO 3: Write goBack() using router.push() to navigate to '/task-home'
 function goBack() {
-  // your code here
   router.push('/task-home')
 }
 </script>
@@ -35,15 +34,24 @@ function goBack() {
         <button class="back-btn" @click="goBack">← Back to Tasks</button>
       </div>
 
-      <!-- TODO 5: Display task.name, task.dueDate, and task.done status -->
+      <!-- TODO 5: Display task.name, task.dueDate, task.priority and task.done status -->
       <h1>{{ task.name }}</h1>
       
       <div class="meta-card">
         <div class="meta-row">
           <span class="meta-label">Status</span>
-          <span class="priority" :class="task.done ? 'low' : 'medium'">
+          <span class="status-badge" :class="task.done ? 'completed-badge' : 'pending-badge'">
             {{ task.done ? 'Done' : 'Pending' }}
           </span>
+        </div>
+
+        <!-- Added task priority row to complement Day 1/2 updates -->
+        <div class="meta-row">
+          <span class="meta-label">Priority</span>
+          <span v-if="task.priority" class="priority" :class="task.priority.toLowerCase()">
+            {{ task.priority }}
+          </span>
+          <span v-else class="meta-value">-</span>
         </div>
 
         <div class="meta-row">
@@ -53,8 +61,8 @@ function goBack() {
       </div>
     </div>
 
-    <!-- This case is handled by the router guard, but good to have a fallback -->
-    <div v-if="!task" class="detail-container empty-state">
+    <!-- Fallback container state when item parameters are missing -->
+    <div v-else class="detail-container empty-state">
       <p class="empty">Task parameters not found or missing.</p>
       <button class="back-btn error-back" @click="goBack">Go Back Home</button>
     </div>
@@ -90,7 +98,7 @@ function goBack() {
 .meta-card {
   background: var(--color-background);
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 1.25rem;
   margin-top: 0.5rem;
   display: flex;
@@ -102,8 +110,8 @@ function goBack() {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 0.75rem;
 }
 
 .meta-row:last-child {
@@ -123,21 +131,45 @@ function goBack() {
   font-weight: 600;
 }
 
-.priority {
-  margin-left: 0;
+/* Specific semantic custom status pill tokens */
+.status-badge {
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.completed-badge {
+  background: rgba(65, 184, 131, 0.15);
+  color: var(--color-green);
+}
+.pending-badge {
+  background: rgba(255, 193, 7, 0.15);
+  color: #FFC107;
 }
 
-/* Fallback Design structure when parameters missing */
+/* Explicit task card style matching layout variables */
+.priority {
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-block;
+  white-space: nowrap;
+}
+.priority.low { background: rgba(65, 184, 131, 0.15); color: var(--color-green); }
+.priority.medium { background: rgba(255, 193, 7, 0.15); color: #FFC107; }
+.priority.high { background: rgba(206, 36, 36, 0.15); color: var(--color-red); }
+
 .empty-state {
   text-align: center;
-  padding: 1rem 0;
+  padding: 2rem 0;
 }
 
 .error-back {
   border-color: var(--color-red);
   color: var(--color-red);
   align-self: center;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 
 .error-back:hover {

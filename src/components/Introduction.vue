@@ -4,16 +4,8 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-function viewTaskCounter(){
-  router.push({ name: 'task-counter' })
-}
-
-function viewTaskList(){
-  router.push({ name: 'task-list' })
-}
-
-function viewTaskHome(){
-  router.push({ name: 'task-home'})
+function viewWeek1Tasks(){
+  router.push({ name: 'task-home' })
 }
 </script>
 
@@ -34,9 +26,7 @@ function viewTaskHome(){
       </p>
 
       <div class="intro-actions">
-        <button class="view-button" @click="viewTaskCounter">Task 1</button>
-        <button class="view-button" @click="viewTaskList">Task 2</button>
-        <button class="view-button" @click="viewTaskHome">Task 3</button>
+        <button class="view-button" @click="viewWeek1Tasks">View Combined Task 1 to Task 4</button>
       </div>
     </div>
 
@@ -92,7 +82,6 @@ function viewTaskHome(){
   max-width: 480px;
 }
 
-/* ── CTA buttons ── */
 .intro-actions {
   display: flex;
   gap: 0.75rem;
