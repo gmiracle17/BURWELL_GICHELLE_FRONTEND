@@ -64,30 +64,15 @@ onUnmounted(() => document.removeEventListener('click', handleClickOutside))
         </a>
 
         <div class="user-menu">
-          <button 
-            v-if="isLoggedIn"
-            class="user-icon-button" 
-            @click.stop="toggleUserDropdown" 
-            :aria-expanded="userDropdownOpen"
-          >
+          <button v-if="isLoggedIn" class="user-icon-button" @click.stop="toggleUserDropdown" :aria-expanded="userDropdownOpen">
             <font-awesome-icon icon="fa-solid fa-user" />
           </button>
 
-          <button 
-            v-else 
-            class="nav-login-button" 
-            @click="goToLoginPage"
-          >
-            Sign In
-          </button>
+          <button v-else class="nav-login-button" @click="goToLoginPage">Sign In</button>
 
           <div v-if="userDropdownOpen && isLoggedIn" class="user-dropdown">
-            <p class="dropdown-greeting">
-              Signed in as <strong>{{ currentUser }}</strong>
-            </p>
-            <button class="logout-button" @click="handleLogout">
-              Sign out
-            </button>
+            <p class="dropdown-greeting">Signed in as {{ currentUser }}</p>
+            <button class="logout-button" @click="handleLogout">Sign out</button>
           </div>
         </div>
 

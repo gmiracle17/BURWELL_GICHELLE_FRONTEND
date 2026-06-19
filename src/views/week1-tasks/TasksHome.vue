@@ -14,8 +14,8 @@ const { addTask, editTask, toggleTask, removeTask, setPriority } = taskStore
 const filter = ref('All')
 
 const filteredTasks = computed(() => {
-  if (filter.value === 'Pending') return tasks.value.filter(t => !t.done)
-  if (filter.value === 'Done')    return tasks.value.filter(t => t.done)
+  if (filter.value === 'Pending') return tasks.value.filter(task => !task.done)
+  if (filter.value === 'Done')    return tasks.value.filter(task => task.done)
   return tasks.value
 })
 
