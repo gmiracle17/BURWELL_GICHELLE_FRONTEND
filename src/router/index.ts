@@ -14,7 +14,6 @@ const router = createRouter({
     { path: '/task-home', name: 'task-home', component: TasksHome,},
     { path: '/task/:id', component: TaskDetailView, meta: { requiresTask: true }},
     { path: '/task-stats', name: 'task-stats', component: StatsView},
-
   ],
 })
 

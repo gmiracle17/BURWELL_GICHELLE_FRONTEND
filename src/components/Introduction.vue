@@ -20,7 +20,7 @@ function viewWeek1Tasks(){
       </h1>
 
       <p class="intro-description">
-        Hi, I'm <strong>Gichelle Miracle 奇跡 Burwell</strong>. Explore my Vue.js
+        Hi! I'm Gichelle Miracle 奇跡 Burwell. Explore my Vue.js
         projects showcasing front-end development, problem-solving, and
         user-focused design.
       </p>

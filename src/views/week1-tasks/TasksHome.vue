@@ -9,7 +9,7 @@ import TaskCard from './TaskCard.vue'
 const taskStore = useTaskStore()
 const router = useRouter()
 const { tasks, totalCount, doneCount, pendingCount } = storeToRefs(taskStore)
-const { addTask: storeAddTask, editTask, toggleTask, removeTask, setPriority } = taskStore
+const { addTask, editTask, toggleTask, removeTask, setPriority } = taskStore
 
 const filter = ref('All')
 
@@ -27,7 +27,7 @@ function handleAddTask() {
   if (!newTaskName.value.trim()) return
   
   // Call the storeAddTask and pass name and date arguments
-  storeAddTask(newTaskName.value.trim(), newTaskDate.value || null)
+  addTask(newTaskName.value.trim(), newTaskDate.value || null)
   
   if (newTaskPriority.value !== 'Low' && tasks.value.length > 0) {
     const latestTask = tasks.value[tasks.value.length - 1]

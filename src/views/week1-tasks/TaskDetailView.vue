@@ -17,7 +17,7 @@ const taskStore = useTaskStore()
 
 // TODO 2: Find the task matching the route param
 // Remember: route.params.id is a STRING — cast to Number before comparing
-const task = computed(() => taskStore.tasks.find(t => t.id === Number(route.params.id)))
+const task = computed(() => taskStore.tasks.find(task => task.id === Number(route.params.id)))
 
 // TODO 3: Write goBack() using router.push() to navigate to '/task-home'
 function goBack() {
@@ -64,7 +64,7 @@ function goBack() {
     <!-- Fallback container state when item parameters are missing -->
     <div v-else class="detail-container empty-state">
       <p class="empty">Task parameters not found or missing.</p>
-      <button class="back-btn error-back" @click="goBack">Go Back Home</button>
+      <button class="back-btn error-back" @click="goBack">← Go Back Home</button>
     </div>
   </div>
 </template>
@@ -174,6 +174,7 @@ function goBack() {
 
 .error-back:hover {
   background: var(--color-red);
+  border-color: var(--color-red);
   color: white;
 }
 </style>
