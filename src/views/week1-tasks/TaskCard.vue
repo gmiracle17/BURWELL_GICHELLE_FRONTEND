@@ -79,11 +79,7 @@ function navigateToDetails() {
                 autofocus
               />
               
-              <input
-                v-model="editDate"
-                type="date"
-                class="edit-date-input"
-              />
+              <input v-model="editDate" type="date" class="edit-date-input"/>
 
               <select 
                 :value="props.task.priority" 
@@ -152,9 +148,9 @@ function navigateToDetails() {
 .task-card {
   background: var(--color-background);
   border: 1px solid #2e4060;
-  border-radius: 12px;
-  padding: 16px 18px;
-  margin-bottom: 12px;
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
   transition: all 0.2s ease;
   color: #e2e8f0;
 }
@@ -173,17 +169,17 @@ function navigateToDetails() {
 .task-container {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .task-checkbox {
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .task-content-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
   flex: 1;
 }
 
@@ -191,7 +187,7 @@ function navigateToDetails() {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
   width: 100%;
 }
 
@@ -202,13 +198,13 @@ function navigateToDetails() {
 .name-wrapper {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
   flex-wrap: wrap;
 }
 
 .task-name {
   font-weight: 600;
-  font-size: 1.05rem;
+  font-size: 0.9rem;
   color: #e2e8f0;
   cursor: pointer;
 }
@@ -224,7 +220,7 @@ function navigateToDetails() {
 }
 
 .meta {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #8b97a5;
   white-space: nowrap;
 }
@@ -232,32 +228,32 @@ function navigateToDetails() {
 .edit-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
   flex-wrap: wrap;
 }
 
 .edit-input {
   flex: 2;
-  min-width: 150px;
+  min-width: 130px;
   background: #0f1e30;
   border: 1px solid var(--color-green);
-  border-radius: 6px;
-  padding: 5px 10px;
+  border-radius: 5px;
+  padding: 4px 8px;
   color: #e2e8f0;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   outline: none;
 }
 
 .edit-date-input {
   flex: 1;
-  min-width: 120px;
+  min-width: 100px;
   background: #0f1e30;
   border: 1px solid var(--color-border);
-  border-radius: 6px;
-  padding: 4px 8px;
+  border-radius: 5px;
+  padding: 3px 6px;
   color: #e2e8f0;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   outline: none;
 }
 
@@ -271,16 +267,16 @@ function navigateToDetails() {
 }
 .task-actions {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   align-items: center;
   flex-shrink: 0;
 }
 
 .btn-details, .btn-save, .btn-cancel {
-  padding: 5px 14px;
+  padding: 4px 10px;
   border: none;
-  border-radius: 6px;
-  font-size: 0.82rem;
+  border-radius: 5px;
+  font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
 }
@@ -306,14 +302,14 @@ function navigateToDetails() {
   background: transparent;
   border: 1px solid var(--color-border);
   color: #94a3b8;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
 }
 
 .btn-edit-icon:hover {
@@ -326,23 +322,35 @@ function navigateToDetails() {
   color: #94a3b8;
 }
 
-/* Priority Context State Accent Tags Styling */
+/* Priority badge adjustments for inline display */
 .priority {
-  padding: 0.1rem 0.45rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
   white-space: nowrap;
 }
-.priority.low { background: rgba(65, 184, 131, 0.15); color: var(--color-green); }
-.priority.medium { background: rgba(255, 193, 7, 0.15); color: #FFC107; }
-.priority.high { background: rgba(206, 36, 36, 0.15); color: var(--color-red); }
+
+.priority.low {
+  background: rgba(60, 114, 72, 0.1);
+  color: var(--color-green);
+}
+
+.priority.medium {
+  background: rgba(251, 191, 36, 0.1);
+  color: #fbbf24;
+}
+
+.priority.high {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
 
 .inline-select {
-  padding: 4px 24px 4px 8px;
-  font-size: 0.82rem;
-  height: 28px;
-  border-radius: 6px;
+  padding: 3px 20px 3px 6px;
+  font-size: 0.75rem;
+  height: 24px;
+  border-radius: 5px;
 }
 </style>

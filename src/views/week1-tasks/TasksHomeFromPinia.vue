@@ -8,16 +8,32 @@ import TaskCard from './TaskCard.vue'
 
 const taskStore = useTaskStore()
 const router = useRouter()
-const { tasks, totalCount, doneCount, pendingCount } = storeToRefs(taskStore)
+const { tasks } = storeToRefs(taskStore)
 const { addTask, editTask, toggleTask, removeTask, setPriority } = taskStore
 
 const filter = ref('All')
+const searchQuery = ref('')
 
-const filteredTasks = computed(() => {
-  if (filter.value === 'Pending') return tasks.value.filter(task => !task.done)
-  if (filter.value === 'Done')    return tasks.value.filter(task => task.done)
-  return tasks.value
+// Apply search filter
+const searchedTasks = computed(() => {
+  if (!searchQuery.value.trim()) return tasks.value
+  
+  const query = searchQuery.value.toLowerCase()
+  return tasks.value.filter(task =>
+    task.name.toLowerCase().includes(query)
+  )
 })
+
+// Apply status filter
+const filteredTasks = computed(() => {
+  if (filter.value === 'Pending') return searchedTasks.value.filter(task => !task.done)
+  if (filter.value === 'Done') return searchedTasks.value.filter(task => task.done)
+  return searchedTasks.value
+})
+
+const totalCount = computed(() => searchedTasks.value.length)
+const doneCount = computed(() => searchedTasks.value.filter(task => task.done).length)
+const pendingCount = computed(() => searchedTasks.value.filter(task => !task.done).length)
 
 const newTaskName = ref('')
 const newTaskDate = ref('')
@@ -25,22 +41,19 @@ const newTaskPriority = ref('Low')
 
 function handleAddTask() {
   if (!newTaskName.value.trim()) return
-  
-  // Call the storeAddTask and pass name and date arguments
+
   addTask(newTaskName.value.trim(), newTaskDate.value || null)
-  
+
   if (newTaskPriority.value !== 'Low' && tasks.value.length > 0) {
     const latestTask = tasks.value[tasks.value.length - 1]
     setPriority(latestTask.id, newTaskPriority.value)
   }
 
-  // Reset local input states
   newTaskName.value = ''
   newTaskDate.value = ''
   newTaskPriority.value = 'Low'
 }
 
-// Clean handlers mapping
 function handleComplete(id) {
   toggleTask(id)
 }
@@ -58,7 +71,6 @@ function handlePriorityUpdate(id, newPriority) {
 }
 
 function clearAllDone() {
-  // Filters out completed tasks
   tasks.value.forEach(task => {
     if (task.done) removeTask(task.id)
   })
@@ -71,17 +83,29 @@ function goToStats() {
 
 <template>
   <div class="app">
-    <h1>My Tasks</h1>
+    <h1>My Tasks : Pinia Version</h1>
 
     <div class="input-row">
-      <input v-model="newTaskName" @keyup.enter="handleAddTask" placeholder="New task name..."/>
-      <input v-model="newTaskDate" type="date" class="date-input"/>
+      <input v-model="newTaskName" @keyup.enter="handleAddTask" placeholder="Enter new task name..." />
+      <input v-model="newTaskDate" type="date" class="date-input" />
       <select v-model="newTaskPriority" class="priority-select">
         <option value="Low">Low</option>
         <option value="Medium">Medium</option>
         <option value="High">High</option>
       </select>
       <button @click="handleAddTask">Add Task</button>
+    </div>
+
+    <div class="input-row">
+      <input
+        v-model="searchQuery"
+        type="text"
+        placeholder="🔎︎ Search tasks by title..."
+        class="search-input-main"
+      />
+      <button v-if="searchQuery" @click="searchQuery = ''" class="clear-search-btn">
+        Clear
+      </button>
     </div>
 
     <div class="filter-buttons">
@@ -97,8 +121,8 @@ function goToStats() {
       </button>
       <button :class="{ active: filter === 'Pending' }" @click="filter = 'Pending'">
         Pending ({{ pendingCount }})
-      </button> 
-      
+      </button>
+
       <button class="clear-done" @click="clearAllDone" :disabled="doneCount === 0">
         <font-awesome-icon icon="fa-solid fa-trash" />
         Clear Done
@@ -106,7 +130,8 @@ function goToStats() {
     </div>
 
     <div v-if="filteredTasks.length === 0" class="empty">
-      <p v-if="filter === 'All'">No tasks yet. Add one above!</p>
+      <p v-if="searchQuery">No tasks match your search "{{ searchQuery }}"</p>
+      <p v-else-if="filter === 'All'">No tasks yet. Add one above!</p>
       <p v-else-if="filter === 'Done'">No done tasks yet.</p>
       <p v-else-if="filter === 'Pending'">No pending tasks yet.</p>
     </div>
@@ -128,14 +153,41 @@ function goToStats() {
 </template>
 
 <style scoped>
-.input-row input[type="date"] {
-  flex: 0 1 150px;
-  max-width: 150px; 
+.search-input-main {
+  flex: 1;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-background);
+  color: var(--color-text);
+  transition: border-color 0.2s ease;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
+.search-input-main:focus {
+  outline: none;
+  border-color: var(--color-green);
+}
+
+.clear-search-btn {
+  padding: 0.4rem 0.9rem;
+  background: var(--color-green);
+  color: var(--color-background);
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.8rem;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-search-btn:hover {
+  transform: translateY(-1px);
+}
+
+.input-row input[type="date"] {
+  flex: 0 1 150px;
+  max-width: 150px;
 }
 
 @media (max-width: 768px) {

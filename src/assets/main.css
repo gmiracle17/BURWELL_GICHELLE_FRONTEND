@@ -67,3 +67,124 @@ a, .green {
   border-radius: 12px;
   padding: 1.5rem;
 }
+
+/* Common Component Patterns */
+
+/* Priority badges - used across multiple task components */
+.priority {
+  margin-left: 0.5rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.priority.low {
+  background: rgba(65, 184, 131, 0.15);
+  color: var(--color-green);
+}
+
+.priority.medium {
+  background: rgba(255, 193, 7, 0.15);
+  color: #FFC107;
+}
+
+.priority.high {
+  background: rgba(206, 36, 36, 0.15);
+  color: var(--color-red);
+}
+
+/* Status badges */
+.status-badge {
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.completed-badge {
+  background: rgba(65, 184, 131, 0.15);
+  color: var(--color-green);
+}
+
+.pending-badge {
+  background: rgba(255, 193, 7, 0.15);
+  color: #FFC107;
+}
+
+/* Back button - used in multiple views */
+.back-btn-wrapper {
+  margin-bottom: 1rem;
+}
+
+.back-btn {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+
+/* Empty state messages */
+.empty {
+  text-align: center;
+  color: #8b97a5;
+  padding: 2rem 0;
+  font-size: 1rem;
+}
+
+/* Loading state */
+.loading {
+  text-align: center;
+  padding: 48px;
+  color: #42b883;
+  font-size: 16px;
+}
+
+/* Error box */
+.error-box {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  padding: 16px;
+  color: #dc2626;
+}
+
+/* Meta information text */
+.meta {
+  font-size: 0.8rem;
+  color: #8b97a5;
+  white-space: nowrap;
+}
+
+.meta-label {
+  color: #8b97a5;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.meta-value {
+  color: var(--color-text);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Done/completed text styling */
+.done {
+  text-decoration: line-through;
+  color: #8b97a5 !important;
+}
+
+.completed-text {
+  text-decoration: line-through;
+  color: #9ca3af;
+}

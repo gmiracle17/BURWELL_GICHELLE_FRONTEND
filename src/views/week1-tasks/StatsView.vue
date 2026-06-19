@@ -10,7 +10,7 @@ const router = useRouter()
 const { totalCount, doneCount, pendingCount } = storeToRefs(taskStore)
 
 function goBack() {
-  router.push('/task-home')
+  router.push({ name: 'task-home-pinia' })
 }
 </script>
 
@@ -42,22 +42,22 @@ function goBack() {
 </template>
 
 <style scoped>
-.stats-grid { 
+.stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem; 
-  margin-top: 1.5rem; 
+  gap: 0.75rem;
+  margin-top: 1rem;
 }
 
-.stat-card { 
-  background: var(--color-background); 
-  border: 1px solid var(--color-border); 
-  border-radius: 10px; 
-  padding: 1.25rem 1rem; 
-  text-align: center; 
+.stat-card {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem 0.8rem;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.2rem;
   transition: border-color 0.2s ease;
 }
 
@@ -65,10 +65,10 @@ function goBack() {
   border-color: var(--color-green);
 }
 
-.stat-number { 
-  display: block; 
-  font-size: 2rem; 
-  font-weight: 700; 
+.stat-number {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 700;
   line-height: 1;
 }
 
@@ -77,38 +77,18 @@ function goBack() {
 .stat-card.doneCount .stat-number { color: var(--color-green); }
 .stat-card.pending .stat-number { color: #FFC107; }
 
-.stat-label { 
-  color: #8b97a5; 
-  font-size: 0.85rem; 
+.stat-label {
+  color: #8b97a5;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-weight: 600;
 }
 
-.back-btn-wrapper {
-  margin-bottom: 1rem;
-}
-
-.back-btn { 
-  background: transparent; 
-  border: 1px solid var(--color-border); 
-  color: var(--color-text); 
-  border-radius: 999px; 
-  padding: 0.4rem 1rem; 
-  font-size: 0.9rem;
-  cursor: pointer; 
-  transition: all 0.2s ease;
-}
-
-.back-btn:hover { 
-  border-color: var(--color-green);
-  color: var(--color-green);
-}
-
 @media (max-width: 480px) {
   .stats-grid {
     grid-template-columns: 1fr;
-    gap: 0.75rem;
+    gap: 0.6rem;
   }
 }
 </style>

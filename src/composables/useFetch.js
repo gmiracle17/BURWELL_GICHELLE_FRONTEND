@@ -63,25 +63,37 @@
 
 import { ref, onMounted } from 'vue'
 
-// TODO 1: Export a useFetch function that accepts a url parameter
 export function useFetch(url) {
+  const data = ref(null)
+  const loading = ref(true)
+  const error = ref(null)
 
-  // TODO 2: Create three refs — data, loading, error
-  // const data    = ref(null)
-  // const loading = ref(true)
-  // const error   = ref(null)
+  const fetchData = async () => {
+    loading.value = true
+    error.value = null
+    
+    try {
+      const response = await fetch(url)
 
-  // TODO 3: Use onMounted with an async callback to fetch the data
-  // onMounted(async () => {
-  //   try {
-  //     TODO 4: fetch the url, check response.ok, parse JSON into data.value
-  //   } catch (e) {
-  //     TODO 5: assign the error message to error.value
-  //   } finally {
-  //     TODO 6: set loading.value = false
-  //   }
-  // })
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`)
+      }
 
-  // TODO 7: Return the three refs
-  // return { data, loading, error }
+      data.value = await response.json()
+    } catch (e) {
+      error.value = e instanceof Error ? e.message : 'Failed to fetch data'
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const retry = () => {
+    fetchData()
+  }
+
+  onMounted(() => {
+    fetchData()
+  })
+
+  return { data, loading, error, retry }
 }

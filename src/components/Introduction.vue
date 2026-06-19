@@ -4,8 +4,8 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-function viewWeek1Tasks(){
-  router.push({ name: 'task-home' })
+function viewProjects() {
+  router.push({ name: 'projects' })
 }
 </script>
 
@@ -20,13 +20,15 @@ function viewWeek1Tasks(){
       </h1>
 
       <p class="intro-description">
-        Hi! I'm Gichelle Miracle 奇跡 Burwell. Explore my Vue.js
+        Hi! I'm <span class="text-green">Gichelle Miracle 奇跡 Burwell</span>. Explore my Vue.js
         projects showcasing front-end development, problem-solving, and
         user-focused design.
       </p>
 
       <div class="intro-actions">
-        <button class="view-button" @click="viewWeek1Tasks">View Combined Task 1 to Task 4</button>
+        <button class="view-button" @click="viewProjects">
+          View My Projects
+        </button>
       </div>
     </div>
 
@@ -42,7 +44,9 @@ function viewWeek1Tasks(){
   align-items: center;
   justify-content: space-between;
   gap: 3rem;
-  padding: 6rem 2rem 4rem;
+  padding: 2rem;
+  padding-top: calc(80px + 1rem);
+  padding-bottom: 4rem;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -103,17 +107,6 @@ function viewWeek1Tasks(){
 .view-button:hover {
   opacity: 0.85;
   transform: translateY(-2px);
-}
-
-.view-button--outline {
-  background: transparent;
-  color: var(--color-green);
-}
-
-.view-button--outline:hover {
-  background: var(--color-green);
-  color: var(--color-background);
-  opacity: 1;
 }
 
 /* ── Right column ── */
